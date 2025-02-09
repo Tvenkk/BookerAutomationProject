@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GetBookingByIdTest {
     private APIClient apiClient;
@@ -31,7 +32,9 @@ public class GetBookingByIdTest {
         BookingById bookingbyid = objectMapper.readValue(response.asString(), BookingById.class);
 
         assertEquals("Mark", bookingbyid.getFirstname(), "Неверное Имя");
-        assertEquals("Smith", bookingbyid.getLastname(), "Неверная Фамилия");
-        assertEquals(405, bookingbyid.getTotalprice(), "Неверная цена");
+        assertEquals("Jackson", bookingbyid.getLastname(), "Неверная Фамилия");
+        assertEquals(109, bookingbyid.getTotalprice(), "Неверная цена");
+        assertTrue(bookingbyid.isDepositpaid());
+        assertEquals("Breakfast", bookingbyid.getAdditionalneeds(), "Неверные данные о дополнительных потребностях");
     }
 }
