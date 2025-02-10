@@ -101,13 +101,14 @@ public class APIClient {
                 .response();
     }
 
-    // GET-запрос на эндпоинт /bookingbyid
-    public Response getBookingById() {
+    // GET-запрос на эндпоинт /booking
+    public Response getBookingById(int bookingId) {
         return getRequestSpec()
+                .pathParam("id", bookingId)
                 .when()
-                .get(ApiEndpoints.BOOKINGBYID.getPath()) // Используем ENUM для эндпоинта /bookingbyid
+                .get(ApiEndpoints.BOOKING.getPath() + "/{id}") //
                 .then()
-                .statusCode(200) // Ожидаемый статус-код 200 OK
+                .log().all()
                 .extract()
                 .response();
     }
