@@ -8,8 +8,6 @@ public class BookingById {
     private int totalprice;
     private boolean depositpaid;
     private Object bookingdates;
-    private Date checkin;
-    private Date checkout;
     private String additionalneeds;
 
     public String getFirstname() {
@@ -42,22 +40,6 @@ public class BookingById {
 
     public void setDepositpaid(boolean depositpaid) {
         this.depositpaid = depositpaid;
-    }
-
-    public Date getCheckin() {
-        return checkin;
-    }
-
-    public void setCheckin(Date checkin) {
-        this.checkin = checkin;
-    }
-
-    public Date getCheckout() {
-        return checkout;
-    }
-
-    public void setCheckout(Date checkout) {
-        this.checkout = checkout;
     }
 
     public String getAdditionalneeds() {
