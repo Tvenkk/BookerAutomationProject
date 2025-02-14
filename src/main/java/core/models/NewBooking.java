@@ -1,13 +1,11 @@
 package core.models;
 
-import java.util.Date;
-
-public class BookingById {
+public class NewBooking {
     private String firstname;
     private String lastname;
     private int totalprice;
     private boolean depositpaid;
-    private Object bookingdates;
+    private BookingDates bookingdates;
     private String additionalneeds;
 
     public String getFirstname() {
@@ -42,19 +40,19 @@ public class BookingById {
         this.depositpaid = depositpaid;
     }
 
+    public BookingDates getBookingdates() {
+        return bookingdates;
+    }
+
+    public void setBookingdates(BookingDates bookingdates) {
+        this.bookingdates = bookingdates;
+    }
+
     public String getAdditionalneeds() {
         return additionalneeds;
     }
 
     public void setAdditionalneeds(String additionalneeds) {
         this.additionalneeds = additionalneeds;
-    }
-
-    public Object getBookingdates() {
-        return bookingdates;
-    }
-
-    public void setBookingdates(Object bookingdates) {
-        this.bookingdates = bookingdates;
     }
 }

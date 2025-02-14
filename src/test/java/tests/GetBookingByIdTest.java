@@ -24,16 +24,16 @@ public class GetBookingByIdTest {
     @Test
     public void testGetBookingById() throws Exception {
         // Выполняем запрос к эндпоинту /bookingbyid через APIClient
-        Response response = apiClient.getBookingById(2);
+        Response response = apiClient.getBookingById(779);
 
         // Проверяем, что статус-код ответа равен 200
         assertThat(response.getStatusCode()).isEqualTo(200);
 
         BookingById bookingbyid = objectMapper.readValue(response.asString(), BookingById.class);
 
-        assertEquals("Mark", bookingbyid.getFirstname(), "Неверное Имя");
-        assertEquals("Jackson", bookingbyid.getLastname(), "Неверная Фамилия");
-        assertEquals(109, bookingbyid.getTotalprice(), "Неверная цена");
+        assertEquals("John", bookingbyid.getFirstname(), "Неверное Имя");
+        assertEquals("Smith", bookingbyid.getLastname(), "Неверная Фамилия");
+        assertEquals(111, bookingbyid.getTotalprice(), "Неверная цена");
         assertTrue(bookingbyid.isDepositpaid());
         assertEquals("Breakfast", bookingbyid.getAdditionalneeds(), "Неверные данные о дополнительных потребностях");
     }
