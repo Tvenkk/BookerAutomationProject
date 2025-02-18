@@ -118,10 +118,35 @@ public class APIClient {
         return getRequestSpec()
                 .pathParam("id", bookingId)
                 .when()
-                .delete(ApiEndpoints.BOOKING.getPath() + "/{id}") //
+                .delete(ApiEndpoints.BOOKING.getPath() + "/{id}")
                 .then()
                 .log().all()
                 .statusCode(201)
+                .extract()
+                .response();
+    }
+
+    // POST-запрос на эндпоинт /booking
+    public Response createBooking(String newBooking) {
+        return getRequestSpec()
+                .body(newBooking)
+                .log().all()
+                .when()
+                .post(ApiEndpoints.BOOKING.getPath())
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
+
+    // PUT-запрос на эндпоинт /booking
+    public Response updateBooking(int bookingId) {
+        return getRequestSpec()
+                .pathParam("id", bookingId)
+                .when()
+                .put(ApiEndpoints.BOOKING.getPath() + "/{id}")
+                .then()
+                .log().all()
                 .extract()
                 .response();
     }

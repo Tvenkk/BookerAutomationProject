@@ -1,0 +1,75 @@
+package tests;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import core.clients.APIClient;
+import core.models.BookingDates;
+import core.models.CreatedBooking;
+import core.models.NewBooking;
+import core.models.UpdatedBooking;
+import io.restassured.response.Response;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class UpdateBookingTest {
+
+    private APIClient apiClient;
+    private ObjectMapper objectMapper;
+    private CreatedBooking createdBooking; // Храним созданное бронирование
+    private NewBooking newBooking;
+
+    private UpdatedBooking updatedBooking;
+
+    @Test
+    // Инициализация API Клиента и создание объекта Booking перед каждым тестом
+    public void testUpdateBookingId() throws JsonProcessingException {
+        apiClient = new APIClient();
+        objectMapper = new ObjectMapper();
+
+        //Создаем объект Booking с необходимыми данными
+        newBooking = new NewBooking();
+        newBooking.setFirstname("Roman");
+        newBooking.setLastname("Tsapko");
+        newBooking.setTotalprice(170);
+        newBooking.setDepositpaid(true);
+        newBooking.setBookingdates(new BookingDates("2024-12-07", "2024-12-12"));
+        newBooking.setAdditionalneeds("BreakFast");
+
+        // Выполняем запрос к эндпоинту /booking через APIClient
+        String requestBody = objectMapper.writeValueAsString(newBooking);
+        Response response = apiClient.createBooking(requestBody);
+
+        // Проверяем что статус-код ответа равен 200
+        assertThat(response.getStatusCode()).isEqualTo(200);
+
+        // Десерилизуем тело ответа в список объектов Booking
+        String responseBody = response.getBody().asString();
+        CreatedBooking createdBooking = objectMapper.readValue(response.asString(), CreatedBooking.class);
+
+        // Получаем id созданного бронирования
+        int bookingid = createdBooking.getBookingid();
+        // Проверка передачи id
+        System.out.println(bookingid);
+
+
+        apiClient.createToken("admin", "password123");
+        apiClient.updateBooking(createdBooking.getBookingid());
+
+        // Обновляем
+        //updatedBooking = new UpdatedBooking("Sasha", 2001);
+
+        // Обновляем
+        updatedBooking = new UpdatedBooking();
+        updatedBooking.setFirstname("Sasha");
+        updatedBooking.setTotalprice(2001);
+
+        // Выполняем запрос на получение информации по созданном клиенте отправляя id
+        Response response1 = apiClient.getBookingById(bookingid);
+
+        // Проверяем, что статус-код ответа равен 200
+        Assertions.assertThat(response1.getStatusCode()).isEqualTo(200);
+    }
+}
