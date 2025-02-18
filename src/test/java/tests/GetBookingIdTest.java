@@ -3,18 +3,14 @@ package tests;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.clients.APIClient;
-import core.models.BookingById;
 import core.models.BookingDates;
 import core.models.CreatedBooking;
 import core.models.NewBooking;
 import io.restassured.response.Response;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GetBookingIdTest {
 
@@ -24,7 +20,7 @@ public class GetBookingIdTest {
     private NewBooking newBooking;
 
     @Test
-    public void setup() throws JsonProcessingException {
+    public void testGetBookingId() throws JsonProcessingException {
         apiClient = new APIClient();
         objectMapper = new ObjectMapper();
 
