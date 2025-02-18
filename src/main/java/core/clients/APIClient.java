@@ -138,4 +138,16 @@ public class APIClient {
                 .extract()
                 .response();
     }
+
+    // PUT-запрос на эндпоинт /booking
+    public Response updateBooking(int bookingId) {
+        return getRequestSpec()
+                .pathParam("id", bookingId)
+                .when()
+                .put(ApiEndpoints.BOOKING.getPath() + "/{id}")
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
 }
